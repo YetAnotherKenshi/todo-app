@@ -1,10 +1,14 @@
 <html>
-  <head> </head>
+  <head>
+    <link href="{{ url_for('static', path='/todos.css') }}" rel="stylesheet" />
+  </head>
   <body>
-    <form action="/login-post" method="POST">
-      <input type="text" placeholder="Ваш логин" name="login" />
-      <input type="password" placeholder="Пароль" name="password" />
-      <button type="submit">Войти</button>
-    </form>
+    <div class="login-page">
+      <form action="/login-post" method="POST" class="login-form">
+        <input type="text" placeholder="Ваш логин" name="login" />
+        <input type="password" placeholder="Пароль" name="password" />
+        <button type="submit">Войти</button>
+      </form>
+    </div>
   </body>
 </html>

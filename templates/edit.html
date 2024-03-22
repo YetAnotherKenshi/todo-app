@@ -2,14 +2,14 @@
   <link href="{{ url_for('static', path='/todos.css') }}" rel="stylesheet" />
 </head>
 <div class="main">
-  <h2>Edit Todo</h2>
+  <h2>Изменить задачу</h2>
   <form action="{{url_for('update_todo', todo_id=todo.id)}}" method="post">
     <div class="form">
-      <label for="title">Title:</label>
+      <label for="title">Название:</label>
       <input type="text" id="title" name="title" value="{{todo.title}}" />
     </div>
     <div class="form">
-      <label for="description">Description:</label>
+      <label for="description">Описание:</label>
       <input
         type="text"
         id="description"
@@ -17,25 +17,25 @@
         value="{{todo.description}}"
       />
     </div>
-    <!-- <label for="status">Status:</label><br> -->
+
     <fieldset>
       <legend>Select status</legend>
       <div>
         <input type="radio" id="status-wait" name="status" value="0" {% if
         todo.status==0 %} checked {% endif %} />
-        <label for="status-wait">WAIT</label>
+        <label for="status-wait">В ОЖИДАНИИ</label>
       </div>
 
       <div>
         <input type="radio" id="status-progress" name="status" value="1" {% if
         todo.status==1 %}checked {% endif %} />
-        <label for="status-progress">IN PROGRESS</label>
+        <label for="status-progress">В РАБОТЕ</label>
       </div>
 
       <div>
         <input type="radio" id="status-done" name="status" value="2" {% if
         todo.status==2 %} checked {% endif %} />
-        <label for="status-done">DONE</label>
+        <label for="status-done">ГОТОВО</label>
       </div>
     </fieldset>
 
@@ -44,19 +44,19 @@
       <div>
         <input type="radio" id="priority-low" name="priority" value="0" {% if
         todo.priority==0 %} checked {% endif %} />
-        <label for="priority-low">LOW</label>
+        <label for="priority-low">НИЗКИЙ</label>
       </div>
 
       <div>
         <input type="radio" id="priority-med" name="priority" value="1" {% if
         todo.priority==1 %}checked {% endif %} />
-        <label for="priority-med">MED</label>
+        <label for="priority-med">СРЕДНИЙ</label>
       </div>
 
       <div>
         <input type="radio" id="priority-high" name="priority" value="2" {% if
         todo.priority==2 %} checked {% endif %} />
-        <label for="priority-high">HIGH</label>
+        <label for="priority-high">ВЫСОКИЙ</label>
       </div>
     </fieldset>
 
