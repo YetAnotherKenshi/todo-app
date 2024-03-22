@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <link href="{{ url_for('static', path='/todos.css') }}" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/ef6f430fc1.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Список задач</title>
+  </head>
+  <body>
+    <div class="user-info">
+      <p>{{logged_as}}</p>
+      <a href="/logout">Выйти</a>
+    </div>
+    <div class="main">
+      <div class="menu">
+        <div>
+          <strong>Все задачи по:</strong>
+          названию
+          <a href="/?order=title" class="todo-button"
+            ><i class="fa-solid fa-arrow-up"></i
+          ></a>
+
+          <a href="/?order=title&reverse=true" class="todo-button"
+            ><i class="fa-solid fa-arrow-down"></i></a
+          >дате
+          <a href="/?order=date" class="todo-button"
+            ><i class="fa-solid fa-arrow-up"></i
+          ></a>
+          <a href="/?order=date&reverse=true" class="todo-button"
+            ><i class="fa-solid fa-arrow-down"></i
+          ></a>
+          приоритету
+          <a href="/?order=priority" class="todo-button"
+            ><i class="fa-solid fa-arrow-up"></i
+          ></a>
+          <a href="/?order=priority&reverse=true" class="todo-button"
+            ><i class="fa-solid fa-arrow-down"></i
+          ></a>
+        </div>
+
+        <div>
+          <form class="form-inline" action="/" method="GET">
+            <strong> Поиск по тексту:</strong>
+            <input
+              type="text"
+              id="search"
+              placeholder="Введите текст"
+              name="search"
+            />
+            <button type="submit">Показать</button>
+          </form>
+        </div>
+
+        <div>
+          <form class="form-top" action="/" method="GET">
+            <button type="submit">Показать</button> топ
+            <input
+              type="text"
+              id="top"
+              name="top"
+              value="{% if top %}{{top}}{% else %}3{%endif%}"
+            />
+            приоритетных
+          </form>
+        </div>
+      </div>
+
+      <div class="top-bar">
+        {% if top %}
+        <div class="title-block">
+          <a href="/" class="back-link"
+            ><i class="fa-solid fa-arrow-left"></i
+          ></a>
+          <h1 class="title">Топ-{{top}} приоритетных</h1>
+        </div>
+        {% elif search %}
+        <div class="title-block">
+          <a href="/" class="back-link"
+            ><i class="fa-solid fa-arrow-left"></i
+          ></a>
+          <h1 class="title">Результаты поиска</h1>
+        </div>
+        {% else %}
+        <h1 class="title">Все задачи</h1>
+        {% endif %}
+        <a href="{{url_for('add_todo')}}" class="todo-button"
+          ><i class="fa-solid fa-plus"></i
+        ></a>
+      </div>
+
+      <div class="todo-list">
+        {% for todo in todos %}
+        <div
+          class="todo todo-status-{{todo.status}} todo-priority-{{todo.priority}}"
+        >
+          <div class="status-bar">
+            <div class="todo-status">
+              {% if todo.status==0 %} WAIT {% elif todo.status==1 %} IN PROGRESS
+              {% elif todo.status==2 %} DONE {% endif %}
+            </div>
+            <div class="todo-priority">
+              {% if todo.priority==0 %} ! {% elif todo.priority==1 %} !! {% elif
+              todo.priority==2 %} !!! {% endif %}
+            </div>
+          </div>
+          <p class="todo-title">{{ todo.title }}</p>
+          <p class="todo-description">{{ todo.description }}</p>
+
+          <div class="task-footer">
+            <p class="todo-date">{{ todo.created_at | format_datetime }}</p>
+            <div class="icons-bar">
+              <a href="/edit/{{ todo.id }}" class="todo-button"
+                ><i class="fa-solid fa-pen"></i
+              ></a>
+              <a href="/delete/{{ todo.id }}" class="todo-button"
+                ><i class="fa-solid fa-trash"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

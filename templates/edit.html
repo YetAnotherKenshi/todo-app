@@ -1,0 +1,65 @@
+<head>
+  <link href="{{ url_for('static', path='/todos.css') }}" rel="stylesheet" />
+</head>
+<div class="main">
+  <h2>Edit Todo</h2>
+  <form action="{{url_for('update_todo', todo_id=todo.id)}}" method="post">
+    <div class="form">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="{{todo.title}}" />
+    </div>
+    <div class="form">
+      <label for="description">Description:</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        value="{{todo.description}}"
+      />
+    </div>
+    <!-- <label for="status">Status:</label><br> -->
+    <fieldset>
+      <legend>Select status</legend>
+      <div>
+        <input type="radio" id="status-wait" name="status" value="0" {% if
+        todo.status==0 %} checked {% endif %} />
+        <label for="status-wait">WAIT</label>
+      </div>
+
+      <div>
+        <input type="radio" id="status-progress" name="status" value="1" {% if
+        todo.status==1 %}checked {% endif %} />
+        <label for="status-progress">IN PROGRESS</label>
+      </div>
+
+      <div>
+        <input type="radio" id="status-done" name="status" value="2" {% if
+        todo.status==2 %} checked {% endif %} />
+        <label for="status-done">DONE</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Select priority</legend>
+      <div>
+        <input type="radio" id="priority-low" name="priority" value="0" {% if
+        todo.priority==0 %} checked {% endif %} />
+        <label for="priority-low">LOW</label>
+      </div>
+
+      <div>
+        <input type="radio" id="priority-med" name="priority" value="1" {% if
+        todo.priority==1 %}checked {% endif %} />
+        <label for="priority-med">MED</label>
+      </div>
+
+      <div>
+        <input type="radio" id="priority-high" name="priority" value="2" {% if
+        todo.priority==2 %} checked {% endif %} />
+        <label for="priority-high">HIGH</label>
+      </div>
+    </fieldset>
+
+    <input type="submit" value="Изменить" class="form-submit" />
+  </form>
+</div>
